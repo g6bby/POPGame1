@@ -31,11 +31,16 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
+    [Header("Animation")]
+    private Animator animator;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
+
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -51,6 +56,16 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        //ANIMATION
+        if(moveDirection != Vector3.zero)
+        {
+            animator.SetBool("IsMoving", true);
+        }
+        else
+        {
+            animator.SetBool("IsMoving", false);
+        }
     }
 
     private void FixedUpdate()
@@ -113,4 +128,5 @@ public class PlayerMovement : MonoBehaviour
     {
         readyToJump = true;
     }
+
 }
