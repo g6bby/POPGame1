@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
 
     [Header("Animation")]
-    private Animator animator;
+    public Animator animator;
 
     private void Start()
     {
@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
         readyToJump = true;
 
-        animator = GetComponent<Animator>();
+        //animator = gameObject.GetComponent<Animator>();
     }
 
     private void Update()

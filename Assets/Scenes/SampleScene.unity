@@ -1103,6 +1103,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   orientation: {fileID: 958179453}
+  animator: {fileID: 1829936385}
 --- !u!1 &912803810
 GameObject:
   m_ObjectHideFlags: 3
