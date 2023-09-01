@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     bool readyToJump;
 
+    private bool jumping;
+
+
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
 
@@ -33,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Animation")]
     public Animator animator;
+    private float jumpButtonPressedTime;
+    private float jumpButtonGracePeriod;
 
     private void Start()
     {
@@ -66,6 +71,17 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("IsMoving", false);
         }
+
+        if (jumping == true)
+        {
+            animator.SetBool("IsJumping", true);
+        }
+
+        if (grounded)
+        {
+            animator.SetBool("IsJumping", false);
+        }
+
     }
 
     private void FixedUpdate()
@@ -86,7 +102,9 @@ public class PlayerMovement : MonoBehaviour
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
+
         }
+
     }
 
     private void MovePlayer()
@@ -122,6 +140,8 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
+        jumping = true;
     }
 
     private void ResetJump()
