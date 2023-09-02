@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     bool readyToJump;
 
-    private bool jumping;
 
 
     [Header("Keybinds")]
@@ -36,8 +35,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Animation")]
     public Animator animator;
-    private float jumpButtonPressedTime;
-    private float jumpButtonGracePeriod;
+    private bool jumping;
+    private bool isGrounded;
+    private float ySpeed;
+
 
     private void Start()
     {
@@ -50,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+
         //ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
@@ -75,11 +77,26 @@ public class PlayerMovement : MonoBehaviour
         if (jumping == true)
         {
             animator.SetBool("IsJumping", true);
+            animator.SetBool("IsFalling", false);
         }
 
         if (grounded)
         {
+            ySpeed = -0.5f;
             animator.SetBool("IsJumping", false);
+            animator.SetBool("IsGrounded", true);
+            isGrounded = true;
+            animator.SetBool("IsFalling", false);
+        }
+        else
+        {
+            animator.SetBool("IsGrounded", false);
+            isGrounded = false;
+
+            if(jumping && ySpeed < 0 || ySpeed < -2)
+            {
+                animator.SetBool("IsFalling", true);
+            }
         }
 
     }
