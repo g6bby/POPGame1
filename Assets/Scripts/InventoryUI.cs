@@ -19,6 +19,8 @@ public class InventoryUI : MonoBehaviour
 
         if (bubbleText.text == "35")
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             SceneManager.LoadScene("EndScreen");
         }
     }
