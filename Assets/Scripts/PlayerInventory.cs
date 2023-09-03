@@ -14,4 +14,5 @@ public class PlayerInventory : MonoBehaviour
         NumberOfBubbles++;
         OnBubbleCollected.Invoke(this);
     }
+
 }
